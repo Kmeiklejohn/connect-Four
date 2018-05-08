@@ -1,0 +1,40 @@
+html{
+    margin:auto 0;
+}
+#wrapper{
+    display: flex;
+    border:solid black 1px;
+    height: 500px;
+    width: 500px;
+     
+}
+
+.column{
+    display:flex;
+    flex-direction: column-reverse;
+    border-right: solid black 1px;
+    width: 14.3%;
+}
+.row{
+    height: 15%;
+    display: flex;
+    border-bottom: solid black 1px; 
+}
+
+
+.blackCoin{
+    margin: 5%;
+    height: 12.5%;
+    width: 12.5% center;
+    border-radius: 50%;
+    background-color: black;
+
+}
+.redCoin{
+    margin: 5%;
+    height: 12.5%;
+    width: 12.5% center;
+    border-radius: 50%;
+    background-color:red;
+
+}
