@@ -85,8 +85,8 @@ function verticalForTheWin() {
 }
 
 function horizontalForTheWin() {
-    for (let y = 0; y < edgeY; y++) {
-        for (let x = 0; x < edgeX; x++) {
+    for (let y = 0; y < edgeX; y++) {
+        for (let x = 0; x < edgeY; x++) {
             let coinSpot = board[y][x];
 
             if (coinSpot === 1) {
