@@ -1,63 +1,171 @@
 //Coins in javascript
-let numColumns = 7;
-let numRows = 6;
+
 let board = [
-    [],
-    [],
-    [],
-    [],
-    [],
-    []
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+
 ];
+const edgeY = board[0].length - 3;
+const edgeX = board.length - 3;
 
-
-for (let x = 0; x < numColumns; x++) {
+for (let x = 0; x < board.length; x++) {
     const gameBoard = document.getElementById("wrapper");
     let column = document.createElement("div");
-        column.className = "column";
-        column.id = "column" +x.toString();
+    column.className = "column";
+    column.dataset.columnIndex = x;
     gameBoard.appendChild(column);
 
-      for (let y = 0; y < numRows; y++) {
-        let row = document.createElement("div");
-       // row.className = "row";
-    //  row.id = "row" + y.toString();
-  //  column.appendChild(row);
 
-    
-    }
+
 }
 let currentPlayer = "red";
 
 
-addCoin = function (event) {
+const addCoin = function (event) {
     const coinDrop = event.currentTarget;
-    console.log(coinDrop);
-    if (coinDrop.childElementCount < numRows)
+
+    const columnNumber = coinDrop.dataset.columnIndex;
+
+    if (coinDrop.childElementCount < 6) {
+        const coin = document.createElement("div");
         if (currentPlayer === "red") {
-            const redCoin = document.createElement("div");
-            redCoin.className = "redCoin";
-            coinDrop.appendChild(redCoin);
-            const redPlace = 1;
-            
-          
-
-
+            coin.className = "redCoin";
+            coinDrop.appendChild(coin);
+            coin.dataset.redPlace = 1;
+            board[columnNumber][coinDrop.childElementCount - 1] = Number(coin.dataset.redPlace);
+            console.log(board)
+            horizontalForTheWin();
+            verticalForTheWin();
+            diagonallyUpForTheWin();
+            diagonallyDownForTheWin();
 
             currentPlayer = "black";
         } else if (currentPlayer === "black") {
-        const blackCoin = document.createElement("div")
-        blackCoin.className = "blackCoin";
-        coinDrop.appendChild(blackCoin);
-        const blackPlace = 2; 
+            coin.className = "blackCoin";
+            coinDrop.appendChild(coin);
+            coin.dataset.blackPlace = 2;
+            board[columnNumber][coinDrop.childElementCount - 1] = Number(coin.dataset.blackPlace);
+            console.log(board)
 
-        currentPlayer = "red";
+            currentPlayer = "red";
+            horizontalForTheWin();
+            verticalForTheWin();
+            diagonallyUpForTheWin();
+            diagonallyDownForTheWin();
+
+        }
     }
-    //forTheWin();
+
 }
 
-//const forTheWin = () =>{
-//  if 
+function verticalForTheWin() {
+
+    for (let y = 0; y < board.length; y++) {
+        for (let x = 0; x < edgeY; x++) {
+            let coinSpot = board[y][x];
+
+            if (coinSpot === 1) {
+                if (coinSpot === board[y][x + 1] && coinSpot === board[y][x + 2] && coinSpot === board[y][x + 3]) {
+                   playerRedWin();
+                }
+            } else if (coinSpot === 2) {
+                if (coinSpot === board[y][x + 1] && coinSpot === board[y][x + 2] && coinSpot === board[y][x + 3]) {
+                    playerBlackWin();
+
+                }
+            }
+        }
+
+    }
+}
+
+function horizontalForTheWin() {
+    for (let y = 0; y < edgeY; y++) {
+        for (let x = 0; x < edgeX; x++) {
+            let coinSpot = board[y][x];
+
+            if (coinSpot === 1) {
+                if (coinSpot === board[y + 1][x] && coinSpot === board[y + 2][x] && coinSpot === board[y + 3][x]) {
+                  
+                    playerRedWin();
+
+
+
+                }
+            } else if (coinSpot === 2) {
+                if (coinSpot === board[y + 1][x] && coinSpot === board[y + 2][x] && coinSpot === board[y + 3][x]) {
+                    playerBlackWin();
+
+                }
+            }
+
+
+        }
+    }
+}
+
+function diagonallyUpForTheWin() {
+    for (let y = 0; y < edgeY; y++) {
+        for (let x = 0; x < board.length - 2; x++) {
+            let coinSpot = board[y][x];
+
+            if (coinSpot === 1) {
+
+                if (coinSpot === board[y + 1][x + 1] && coinSpot === board[y + 2][x + 2] && coinSpot === board[y + 3][x + 3]) {
+                   playerRedWin();
+                }
+            } else if (coinSpot === 2) {
+                if (coinSpot === board[y + 1][x + 1] && coinSpot === board[y + 2][x + 2] && coinSpot === board[y + 3][x + 3]) {
+                    playerBlackWin();
+                }
+            }
+        }
+    }
+}
+
+function diagonallyDownForTheWin() {
+    for (let y = 0; y < edgeY; y++) {
+        for (let x = 0; x < edgeX; x++) {
+            let coinSpot = board[y][x];
+
+            if (coinSpot === 1) {
+
+                if (coinSpot === board[y + 1][x - 1] && coinSpot === board[y + 2][x - 2] && coinSpot === board[y + 3][x - 3]) {
+                    playerRedWin();
+                }
+            } else if (coinSpot === 2) {
+                if (coinSpot === board[y + 1][x - 1] && coinSpot === board[y + 2][x - 2] && coinSpot === board[y + 3][x - 3]) {
+                    playerBlackWin();
+                }
+            }
+        }
+    }
+}
+
+
+function playerRedWin(){
+    const node = document.createElement("p");
+    const textNode = document.createTextNode("Red Player Wins")
+    node.appendChild(textNode);
+    document.getElementById("win").appendChild(node)
+
+}
+
+
+function playerBlackWin(){
+    const node = document.createElement("p");
+    const textNode = document.createTextNode("Black Player Wins")
+    node.appendChild(textNode);
+    document.getElementById("win").appendChild(node)
+
+}
+
+
 
 
 function addCointoColumn() {

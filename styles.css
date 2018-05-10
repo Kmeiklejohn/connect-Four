@@ -1,40 +1,40 @@
-html{
-    margin:auto 0;
-}
-#wrapper{
-    display: flex;
-    border:solid black 1px;
-    height: 500px;
-    width: 500px;
-     
+html {
+    margin: auto 0;
 }
 
-.column{
-    display:flex;
+#wrapper {
+    display: flex;
+    border: solid black 1px;
+    height: 500px;
+    width: 500px;
+    margin: auto 0;
+}
+
+.column {
+    display: flex;
     flex-direction: column-reverse;
     border-right: solid black 1px;
     width: 14.3%;
 }
-.row{
+
+.row {
     height: 15%;
     display: flex;
-    border-bottom: solid black 1px; 
+    border-bottom: solid black 1px;
 }
 
-
-.blackCoin{
+.blackCoin {
     margin: 5%;
     height: 12.5%;
     width: 12.5% center;
     border-radius: 50%;
     background-color: black;
-
 }
-.redCoin{
+
+.redCoin {
     margin: 5%;
     height: 12.5%;
     width: 12.5% center;
     border-radius: 50%;
-    background-color:red;
-
+    background-color: red;
 }
